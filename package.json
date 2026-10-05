@@ -1,0 +1,42 @@
+{
+  "name": "@toa5ter/ai-rations",
+  "version": "0.1.0",
+  "description": "Portable Pi workflow resources",
+  "type": "module",
+  "keywords": [
+    "pi-package"
+  ],
+  "files": [
+    "pi/dev-loop",
+    "!pi/dev-loop/tests/**",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "pi": {
+    "extensions": [
+      "./pi/dev-loop/index.ts"
+    ],
+    "skills": []
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^1.0.2"
+  },
+  "scripts": {
+    "test": "node --experimental-strip-types --test pi/dev-loop/tests/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format:check": "prettier --check .",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm test"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^1.0.2",
+    "@eslint/js": "^9.39.5",
+    "@types/node": "^22.20.5",
+    "eslint": "^9.39.5",
+    "prettier": "^3.9.9",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.0"
+  }
+}
