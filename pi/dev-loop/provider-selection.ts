@@ -86,6 +86,8 @@ function validateProvider(value: unknown, isPublic: boolean): Provider {
     );
     if (frontmatter.name !== name)
       reject(`provider ${value.id} skill name mismatch in ${path}`);
+    if (frontmatter["disable-model-invocation"] === true)
+      reject(`provider ${value.id} skill must remain model-visible: ${path}`);
     if (
       typeof frontmatter.description !== "string" ||
       !frontmatter.description.trim()

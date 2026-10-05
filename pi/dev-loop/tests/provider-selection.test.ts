@@ -215,6 +215,19 @@ test("public inventory resolves support and workflow paths from its install root
   ]);
 });
 
+test("hidden core skills cannot make the model catalog incomplete", (t) => {
+  // Why: selected workflows must be visible to both slash completion and the model.
+  const wrapper = makeProvider(t, "fixture");
+  writeFileSync(
+    wrapper.skills["dev-loop-debugging"],
+    "---\nname: dev-loop-debugging\ndescription: Fixture\ndisable-model-invocation: true\n---\nBody",
+  );
+  assert.throws(
+    () => selectProvider(makeProvider(t), [wrapper]),
+    /model|visible/i,
+  );
+});
+
 test("malformed public inventories fail rather than hiding absent resources", (t) => {
   // Why: damaged package metadata must not silently weaken resource validation.
   const root = temporaryDirectory(t);
